@@ -17,8 +17,8 @@ const NavItems = () => {
         document.addEventListener("keydown", handler);
 
         return () => {
-          document.removeEventListener("keydown", handler)
-        }
+            document.removeEventListener("keydown", handler);
+        };
     }, []);
 
     const isAnyOpen = activeIndex !== null;
