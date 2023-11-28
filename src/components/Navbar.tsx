@@ -12,7 +12,7 @@ const Navbar = () => {
             <div className="flex h-16 tiems-center">
               {/* TODO: Mobile nav */}
 
-              <div className="ml-4 flex lg:ml-0">
+              <div className="ml-3 flex lg:ml-0 items-center">
                 <Link href="/">
                   <Icons.logo className="h-10 w-10"/>
                 </Link>
