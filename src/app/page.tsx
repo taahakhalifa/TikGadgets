@@ -31,8 +31,8 @@ export default function Home() {
                 <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
                     <h1 className="text-4xl font-bold tracking-tight">
                         Uncover TikTok's Hidden Gems: Must-Have{" "}
-                        <span className="text-green-600">Products</span> and{" "}
-                        <span className="text-green-600">Gadgets</span>.
+                        <span className="text-blue-600">Products</span> and{" "}
+                        <span className="text-blue-600">Gadgets</span>.
                     </h1>
                     <p className="mt-6 text-lg max-w-prose text-muted-foreground">
                         Welcome to the world of TikTok's hidden gems, where
@@ -57,7 +57,7 @@ export default function Home() {
                                 className="text-center md:flex md:items-start md:text-left lg:block lg:text-center"
                             >
                                 <div className="md:flex-shrink-0 flex justify-center">
-                                    <div className="h-16 w-16 flex items-center justify-center rounded-full bg-green-100 text-green-900">
+                                    <div className="h-16 w-16 flex items-center justify-center rounded-full bg-blue-100 text-blue-900">
                                         {<perk.Icon className="w-1/3 h-1/3 " />}
                                     </div>
                                 </div>
