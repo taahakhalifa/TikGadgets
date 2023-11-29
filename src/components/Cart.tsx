@@ -8,10 +8,13 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import { formatPrice } from "../lib/utils";
 
 const Cart = () => {
 
 const itemCount = 1
+
+const fee = 1
 
     return (
         <Sheet>
@@ -42,7 +45,7 @@ const itemCount = 1
                         </div>
                         <div className="flex">
                           <span className="flex-1">Transaction Fee</span>
-                          <span>1</span>
+                          <span>{formatPrice(fee)}</span>
                         </div>
                       </div>
                     </div>
