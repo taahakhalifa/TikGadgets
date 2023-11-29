@@ -1,20 +1,23 @@
 "ues client";
+import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
     Sheet,
     SheetContent,
+    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import Link from "next/link";
 import { formatPrice } from "../lib/utils";
 
 const Cart = () => {
 
 const itemCount = 1
 
-const fee = 1
+const fee = 24.3432
 
     return (
         <Sheet>
@@ -47,7 +50,16 @@ const fee = 1
                           <span className="flex-1">Transaction Fee</span>
                           <span>{formatPrice(fee)}</span>
                         </div>
+                        <div className="flex">
+                          <span className="flex-1">Total</span>
+                          <span>{formatPrice(fee)}</span>
+                        </div>
                       </div>
+                      <SheetFooter>
+                        <SheetTrigger asChild>
+                          <Link href="/cart" className={buttonVariants({className: "w-full"})}>Continue to Checkout</Link>
+                        </SheetTrigger>
+                      </SheetFooter>
                     </div>
                   </>
                 ) : (
