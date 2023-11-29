@@ -1,7 +1,32 @@
-const Cart = () => {
-  return (
-    <div></div>
-  )
-}
+"ues client";
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
+import { ShoppingCart } from "lucide-react";
 
-export default Cart
+const Cart = () => {
+    return (
+        <Sheet>
+            <SheetTrigger className="group -m-2 flex items-center p-2">
+                <ShoppingCart
+                    aria-hidden="true"
+                    className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                />
+                <span className="ml-2 text-sm font-medium tex-gray-700 group-hover:text-gray-800">
+                    0
+                </span>
+            </SheetTrigger>
+            <SheetContent className="flex w-full flex-col pr-0 sm:max-2-lg">
+                <SheetHeader className="space-y-2.5 pr-6">
+                    <SheetTitle>Cart {0}</SheetTitle>
+                </SheetHeader>
+            </SheetContent>
+        </Sheet>
+    );
+};
+
+export default Cart;
