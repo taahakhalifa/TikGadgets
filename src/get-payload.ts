@@ -1,11 +1,10 @@
-import { error } from "console";
 import dotenv from "dotenv";
 import path from "path";
-import type {InitOptions} from "payload/config"
-import payload from "payload"
+import type { InitOptions } from "payload/config";
+import payload from "payload";
 
 dotenv.config({
-    path: path.resolve(__dirname, "../.env"),
+    path: path.resolve(__dirname, "./.env"),
 });
 
 let cached = (global as any).payload;
@@ -15,35 +14,35 @@ if (!cached) {
         client: null,
         promise: null,
     };
-
 }
 
 interface Args {
-  initOptions?: Partial<InitOptions>
+    initOptions?: Partial<InitOptions>;
 }
 
-export const getPayLoadClient = async ({initOptions} : Args = {}) => {
-  if(!process.env.PAYLOAD_SECRET) {
-    throw new Error("PAYLOAD_SECRET is missing")
-  }
-  if(cached.client) {
-    return cached.client
-  }
+export const getPayLoadClient = async ({ initOptions }: Args = {}) => {
+    if (!process.env.PAYLOAD_SECRET) {
+        throw new Error("PAYLOAD_SECRET is missing");
+    }
 
-  if(!cached.promise) {
-    cached.promise = payload.init({
-      secret: process.env.PAYLOAD_SECRET,
-      local: initOptions?.express ? false : true,
-      ...cached(initOptions || {})
-    })
-  }
+    if (cached.client) {
+        return cached.client;
+    }
 
-  try {
-    cached.client = await cached.rpomise
-  } catch (e: unknown) {
-    cached.promise = null
-    throw e
-  }
+    if (!cached.promise) {
+        cached.promise = payload.init({
+            secret: process.env.PAYLOAD_SECRET,
+            local: initOptions?.express ? false : true,
+            ...(initOptions || {}),
+        });
+    }
 
-  return cached.client
+    try {
+        cached.client = await cached.promise;
+    } catch (e: unknown) {
+        cached.promise = null;
+        throw e;
+    }
+
+    return cached.client;
 };
