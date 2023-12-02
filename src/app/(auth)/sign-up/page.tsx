@@ -1,6 +1,6 @@
 "use client"
 
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/src/components/Icons";
@@ -40,6 +40,7 @@ const Page = () => {
                             <Label htmlFor="password">Password</Label>
                             <Input className={cn({"focus-visible:ring-red-500" : true})} placeholder="Password"/>
                           </div>
+                          <Button>Sign Up</Button>
                         </div>
                       </form>
                     </div>
