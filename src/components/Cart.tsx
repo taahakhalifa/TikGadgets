@@ -1,6 +1,6 @@
 "ues client";
-import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { buttonVariants } from "@/src/components/ui/button";
+import { Separator } from "@/src/components/ui/separator";
 import {
     Sheet,
     SheetContent,
@@ -8,7 +8,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/src/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
