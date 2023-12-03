@@ -1,30 +1,36 @@
 import { getPayLoadClient } from "../get-payload";
 import { AuthCredentialValidator } from "../lib/validators/account-credentials-validators";
 import { publicProcedure, router } from "./trpc";
-import {TRPCError} from "@trpc/server"
+import { TRPCError } from "@trpc/server";
 
 export const authRouter = router({
-  createPayloadUser: publicProcedure.input(AuthCredentialValidator).mutation(async ({input}) => {
-    const {email, password} = input
-    const payload = await getPayLoadClient()
+    createPayloadUser: publicProcedure
+        .input(AuthCredentialValidator)
+        .mutation(async ({ input }) => {
+            const { email, password } = input;
+            const payload = await getPayLoadClient();
 
-    // check if user already exists
-    const { docs: users } = await payload.find({
-      collection: "users",
-      where: {
-        email: {
-          equals: email
-        }
-      }
-    })
+            // check if user already exists
+            const { docs: users } = await payload.find({
+                collection: "users",
+                where: {
+                    email: {
+                        equals: email,
+                    },
+                },
+            });
 
-    if (users.length !== 0) 
-      throw new TRPCError({code: "CONFLICT"})
+            if (users.length !== 0) throw new TRPCError({ code: "CONFLICT" });
 
-      await payload.create({
-        collection: "users",
-        data: {}
-      })
-    
-  })
-})
+            await payload.create({
+                collection: "users",
+                data: {
+                    email,
+                    password,
+                    role: "user",
+                },
+            });
+
+            return { success: true, sentToEmail: email };
+        }),
+});
