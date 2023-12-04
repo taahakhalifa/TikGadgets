@@ -1,7 +1,7 @@
 "use client";
 
 import { trpc } from "../trpc/client";
-import { Loader, XCircle } from "lucide-react";
+import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { buttonVariants } from "./ui/button";
 import Link from "next/link";
@@ -44,7 +44,7 @@ const VerifyEmail = ({ token }: VerifyEmailProps) => {
     if (isLoading) {
         return (
             <div className="flex flex-col items-center gap-2">
-                <Loader className="animate-spin h-8 w-8 text-zinc-300" />
+                <Loader2 className="animate-spin h-8 w-8 text-zinc-300" />
                 <h3 className="font-semibold text-xl">Verifying...</h3>
                 <p className="text-muted-foreground text-sm">
                     This won&apos;t take long.
@@ -53,6 +53,7 @@ const VerifyEmail = ({ token }: VerifyEmailProps) => {
         );
     }
 
+    return null
 };
 
 export default VerifyEmail;
