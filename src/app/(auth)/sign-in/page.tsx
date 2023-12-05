@@ -31,7 +31,7 @@ const Page = () => {
     const searchParams = useSearchParams()
     const origin = searchParams.get("origin")
 
-    const { mutate, isLoading } = trpc.auth.signIn.useMutation({
+    const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
         onSuccess: () => {
           toast.success("Signed in successfully")
 
@@ -52,7 +52,7 @@ const Page = () => {
     });
 
     const onSubmit = ({ email, password }: TAuthCredentialValidator) => {
-        mutate({ email, password });
+        signIn({ email, password });
     };
 
     return (
