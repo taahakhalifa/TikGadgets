@@ -43,6 +43,11 @@ const Page = () => {
           }
 
           router.push("/")
+        },
+        onError: (err) => {
+          if (err.data?.code === "UNAUTHORIZED") {
+            toast.error("Invalid email or password.")
+          }
         }
     });
 
