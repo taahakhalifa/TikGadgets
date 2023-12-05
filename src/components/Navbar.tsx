@@ -1,12 +1,15 @@
 import { buttonVariants } from "@/src/components/ui/button";
 import Link from "next/link";
+import { getServerSideUser } from "../lib/payload-utils";
 import Cart from "./Cart";
 import { Icons } from "./Icons";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import NavItems from "./NavItems";
+import {cookies} from "next/headers"
 
-const Navbar = () => {
-    const user = null;
+const Navbar = async () => {
+    const nextCookies = cookies()
+    const {user} = await getServerSideUser(nextCookies)
 
     return (
         <div className="bg-white sticky z-50 top-0 inset-x-0 h-16">
