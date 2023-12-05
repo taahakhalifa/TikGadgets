@@ -3,6 +3,7 @@ import { AuthCredentialValidator } from "../lib/validators/account-credentials-v
 import { publicProcedure, router } from "./trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+
 export const authRouter = router({
     createPayloadUser: publicProcedure
         .input(AuthCredentialValidator)
@@ -10,7 +11,6 @@ export const authRouter = router({
             const { email, password } = input;
             const payload = await getPayLoadClient();
 
-            // check if user already exists
             const { docs: users } = await payload.find({
                 collection: "users",
                 where: {
@@ -49,5 +49,28 @@ export const authRouter = router({
             if (!isVerified) throw new TRPCError({ code: "UNAUTHORIZED" });
 
             return { success: true };
+        }),
+
+    signIn: publicProcedure
+        .input(AuthCredentialValidator)
+        .mutation(async ({ input, ctx }) => {
+            const { email, password } = input;
+            const { res } = ctx;
+
+            const payload = await getPayLoadClient();
+
+            try {
+                await payload.login({
+                    collection: "users",
+                    data: {
+                        email,
+                        password,
+                    },
+                    res,
+                });
+                return {success: true}
+            } catch (err) {
+                throw new TRPCError({code: "UNAUTHORIZED"})
+            }
         }),
 });
