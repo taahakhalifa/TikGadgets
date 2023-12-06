@@ -15,7 +15,6 @@ import {
 } from "@/src/lib/validators/account-credentials-validators";
 import { trpc } from "@/src/trpc/client";
 import { toast } from "sonner";
-import { ZodError } from "zod"
 import { useRouter, useSearchParams } from "next/navigation";
 
 const Page = () => {
@@ -27,28 +26,28 @@ const Page = () => {
         resolver: zodResolver(AuthCredentialValidator),
     });
 
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const origin = searchParams.get("origin")
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const origin = searchParams.get("origin");
 
     const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
         onSuccess: () => {
-          toast.success("Signed in successfully")
+            toast.success("Signed in successfully");
 
-          router.refresh()
+            router.refresh();
 
-          if(origin) {
-            router.push(`/${origin}`)
-            return
-          }
+            if (origin) {
+                router.push(`/${origin}`);
+                return;
+            }
 
-          router.push("/")
+            router.push("/");
         },
         onError: (err) => {
-          if (err.data?.code === "UNAUTHORIZED") {
-            toast.error("Invalid email or password.")
-          }
-        }
+            if (err.data?.code === "UNAUTHORIZED") {
+                toast.error("Invalid email or password.");
+            }
+        },
     });
 
     const onSubmit = ({ email, password }: TAuthCredentialValidator) => {
@@ -71,7 +70,7 @@ const Page = () => {
                                 className: "gap-1.5",
                             })}
                         >
-                            Dont&apos;t have an account? 
+                            Dont&apos;t have an account?
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
@@ -89,7 +88,9 @@ const Page = () => {
                                         placeholder="you@example.com"
                                     />
                                     {errors.email && (
-                                        <p className="text-sm text-red-500">{errors.email.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.email.message}
+                                        </p>
                                     )}
                                 </div>
                                 <div className="grid gap-1 py-2">
@@ -104,7 +105,9 @@ const Page = () => {
                                         placeholder="Password"
                                     />
                                     {errors.password && (
-                                        <p className="text-sm text-red-500">{errors.password.message}</p>
+                                        <p className="text-sm text-red-500">
+                                            {errors.password.message}
+                                        </p>
                                     )}
                                 </div>
                                 <Button>Sign In</Button>
