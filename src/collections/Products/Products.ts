@@ -20,7 +20,7 @@ export const Products: CollectionConfig = {
         },
         {
             name: "name",
-            label: "name",
+            label: "Name",
             type: "text",
             required: true,
         },

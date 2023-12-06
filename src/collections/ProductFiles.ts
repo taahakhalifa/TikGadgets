@@ -63,7 +63,7 @@ export const ProductFiles: CollectionConfig = {
     hooks: {
         beforeChange: [addUser],
     },
-    access: {
+    access: { 
         read: yourOwnAndPurchased,
         update: ({req}) => req.user.role === "admin",
         delete: ({req}) => req.user.role === "admin"
