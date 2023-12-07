@@ -2,6 +2,7 @@ import { Button, buttonVariants } from "@/src/components/ui/button";
 import { ArrowDownToLine, CheckCircle, Store } from "lucide-react";
 import Link from "next/link";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
+import ProductReel from "../components/ProductReel";
 
 const perks = [
     {
@@ -45,7 +46,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                {/* TODO: List products */}
+                <ProductReel title="Brand new" href="/products"/>
             </MaxWidthWrapper>
 
             <section className="border-t border-gray-200 bg-gray-50">
