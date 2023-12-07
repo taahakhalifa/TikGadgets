@@ -16,8 +16,6 @@ export const appRouter = router({
             })
         )
         .query(async ({ input }) => {
-          console.log(input);
-          
             const { query, cursor } = input;
             const { sort, limit, ...queryOpts } = query;
 
