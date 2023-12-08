@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../payload-types";
 import { Skeleton } from "@/src/components/ui/skeleton";
-import { cn } from "../lib/utils";
+import { cn, formatPrice } from "../lib/utils";
 import Link from "next/link";
 import { PRODUCT_CATEGORIES } from "../config";
 
@@ -46,7 +46,9 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
                         {product.name}
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{category}</p>
-                    <p>Price</p>
+                    <p className="mt-1 font-medium text-sm text-gray-900">
+                        {formatPrice(product.price)}
+                    </p>
                 </div>
             </Link>
         );
