@@ -5,6 +5,7 @@ import { Product } from "../payload-types";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { cn } from "../lib/utils";
 import Link from "next/link";
+import { PRODUCT_CATEGORIES } from "../config";
 
 interface ProductListingProps {
     product: Product | null;
@@ -22,6 +23,10 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
         return () => clearTimeout(timer);
     }, [index]);
 
+    const category = PRODUCT_CATEGORIES.find(
+      ({ value }) => value === product?.category
+  )?.label;
+
     if (!product && !isVisible) return <ProductPlaceholder />;
 
     if (product && isVisible) {
@@ -37,8 +42,10 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
             >
                 <div className="flex flex-col w-full">
                     <div>Image</div>
-                    <h3>Product Name</h3>
-                    <p>Category</p>
+                    <h3 className="mt-4 font-md text-sm text-gray-700">
+                        {product.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{category}</p>
                     <p>Price</p>
                 </div>
             </Link>
