@@ -66,10 +66,14 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
                 >
                     <ChevronLeft className="h-4 w-4 text-zinc-700" />
                 </button>
-
             </div>
 
             <Swiper
+                pagination={{
+                    renderBullet: (_: any, className: any) => {
+                        return `<span class="rounded-full transition ${className}"></span>`;
+                    },
+                }}
                 onSwiper={(swiper: SwiperType) => setSwiper(swiper)}
                 spaceBetween={50}
                 modules={[Pagination]}
