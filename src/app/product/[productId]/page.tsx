@@ -6,8 +6,9 @@ import { getPayLoadClient } from "@/get-payload";
 import { notFound } from "next/navigation";
 import { formatPrice } from "@/lib/utils";
 import { PRODUCT_CATEGORIES } from "@/config";
-import { Check } from "lucide-react";
+import { Check, Shield } from "lucide-react";
 import ImageSlider from "@/components/ImageSlider";
+import ProductReel from "@/components/ProductReel";
 
 interface PageProps {
     params: {
@@ -112,8 +113,20 @@ const Page = async ({ params }: PageProps) => {
                     </div>
 
                     {/* Add to cart section */}
+                    <div className="mt-10 lg::col:start:1 lg:row-start-2 lg:max-w-lg lg:self-start">
+                        <div>
+                            <div className="mt-10">Add to cart</div>
+                            <div className="mt-6 text-center">
+                                <div className="group inline-flex text-sm font-medium">
+                                    <Shield aria-hidden="true" className="mr-2 h-5 w-5 flex-shrink-0 text-gray-400"/>
+                                    <span className="text-muted-foreground hover:text-gray-700">30 Day Guarantee</span>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
                 </div>
             </div>
+            <ProductReel href="/products" query={{category: product.category, limit: 4}} title={`Similar ${category}`} subtitle={`Browse similar high-quality ${category} just like this '${product.name}'`}/>
         </MaxWidthWrapper>
     );
 };
