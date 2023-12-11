@@ -1,14 +1,17 @@
 import { PRODUCT_CATEGORIES } from "@/config";
+import { useCart } from "@/hooks/use-cart";
 import { Product } from "@/payload-types";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, X } from "lucide-react";
 import Image from "next/image";
 
 const CartItem = ({ product }: { product: Product }) => {
     const { image } = product.images[0];
 
+    const { removeItem } = useCart();
+
     const category = PRODUCT_CATEGORIES.find(
-      ({ value }) => value === product?.category
-  )?.label;
+        ({ value }) => value === product?.category
+    )?.label;
 
     return (
         <div className="space-y-3 py-2">
@@ -24,13 +27,29 @@ const CartItem = ({ product }: { product: Product }) => {
                             />
                         ) : (
                             <div className="flex h-full items-center justify-center bg-secondary">
-                              <ImageIcon aria-hidden="true" className="h-4 w-4 text-muted-foreground"/>
+                                <ImageIcon
+                                    aria-hidden="true"
+                                    className="h-4 w-4 text-muted-foreground"
+                                />
                             </div>
                         )}
                     </div>
                     <div className="flex flex-col self-start">
-                      <span className="line-clamp-1 text-sm font-medium mb-1">{product.name}</span>
-                      <span className="line-clamp-1 text-xs capitalize text-muted-foreground">{category}</span>
+                        <span className="line-clamp-1 text-sm font-medium mb-1">
+                            {product.name}
+                        </span>
+                        <span className="line-clamp-1 text-xs capitalize text-muted-foreground">
+                            {category}
+                        </span>
+                        <div className="mt-4 text-xs text-muted-foreground">
+                            <button
+                                className="flex items-center gap-0.5 text-red-600 hover:text-red-300"
+                                onClick={() => removeItem(product.id)}
+                            >
+                                <X className="w-3 h-4" />
+                                Remove
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
