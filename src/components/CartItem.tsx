@@ -1,9 +1,14 @@
+import { PRODUCT_CATEGORIES } from "@/config";
 import { Product } from "@/payload-types";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 
 const CartItem = ({ product }: { product: Product }) => {
     const { image } = product.images[0];
+
+    const category = PRODUCT_CATEGORIES.find(
+      ({ value }) => value === product?.category
+  )?.label;
 
     return (
         <div className="space-y-3 py-2">
@@ -22,6 +27,10 @@ const CartItem = ({ product }: { product: Product }) => {
                               <ImageIcon aria-hidden="true" className="h-4 w-4 text-muted-foreground"/>
                             </div>
                         )}
+                    </div>
+                    <div className="flex flex-col self-start">
+                      <span className="line-clamp-1 text-sm font-medium mb-1">{product.name}</span>
+                      <span className="line-clamp-1 text-xs capitalize text-muted-foreground">{category}</span>
                     </div>
                 </div>
             </div>
