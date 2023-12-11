@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, buttonVariants } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { Icons } from "@/src/components/Icons";
-import { cn } from "@/src/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Icons } from "@/components/Icons";
+import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -12,8 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
     TAuthCredentialValidator,
     AuthCredentialValidator,
-} from "@/src/lib/validators/account-credentials-validators";
-import { trpc } from "@/src/trpc/client";
+} from "@/lib/validators/account-credentials-validators";
+import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { ZodError } from "zod"
 import { useRouter } from "next/navigation";

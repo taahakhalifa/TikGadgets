@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Product } from "../payload-types";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn, formatPrice } from "../lib/utils";
 import Link from "next/link";
 import { PRODUCT_CATEGORIES } from "../config";
@@ -25,12 +25,12 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
     }, [index]);
 
     const category = PRODUCT_CATEGORIES.find(
-      ({ value }) => value === product?.category
-  )?.label;
+        ({ value }) => value === product?.category
+    )?.label;
 
-  const validUrls = product?.images
+    const validUrls = product?.images
         .map(({ image }) => (typeof image === "string" ? image : image.url))
-        .filter(Boolean) as string[]
+        .filter(Boolean) as string[];
 
     if (!product && !isVisible) return <ProductPlaceholder />;
 
@@ -46,7 +46,7 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
                 )}
             >
                 <div className="flex flex-col w-full">
-                <ImageSlider urls={validUrls} />
+                    <ImageSlider urls={validUrls} />
                     <h3 className="mt-4 font-md text-sm text-gray-700">
                         {product.name}
                     </h3>

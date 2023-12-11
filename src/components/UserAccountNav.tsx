@@ -6,7 +6,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { User } from "../payload-types";
 import Link from "next/link";

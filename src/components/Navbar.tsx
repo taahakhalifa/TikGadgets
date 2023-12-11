@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/src/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { getServerSideUser } from "../lib/payload-utils";
 import Cart from "./Cart";
