@@ -59,8 +59,8 @@ const Page = async ({ params }: PageProps) => {
 
     return (
         <MaxWidthWrapper className="bg-white">
-            <div className="ng-white">
-                <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:prig ls:max-w-7xl lg:grid-cols-2 ls:gap-x-8 lg:px-8">
+            <div className="bg-white">
+                <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                     <div className="lg:max-w-lg lg:self-end">
                         <ol className="flex items-center space-x-2">
                             {BREADCRUMBS.map((breadcrumb, index) => (
@@ -97,15 +97,18 @@ const Page = async ({ params }: PageProps) => {
                                 <p className="font-medium text-gray-900">
                                     {formatPrice(product.price)}
                                 </p>
-                                <div className="ml-4 border-l text-muted-foregorund border-gray-300 pl-4">
+
+                                <div className="ml-4 border-l text-muted-foreground border-gray-300 pl-4">
                                     {category}
                                 </div>
                             </div>
+
                             <div className="mt-4 space-y-6">
                                 <p className="text-base text-muted-foreground">
                                     {product.description}
                                 </p>
                             </div>
+
                             <div className="mt-6 flex items-center">
                                 <Check
                                     aria-hidden="true"
@@ -118,26 +121,26 @@ const Page = async ({ params }: PageProps) => {
                         </section>
                     </div>
                     {/* PRODUCT IMAGES */}
-                    <div className="mt-10 lg:col-start-2 lg:row-start-2 lg:mt-0 lg:self-center">
+                    <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
                         <div className="aspect-square rounded-lg">
                             <ImageSlider urls={validUrls} />
                         </div>
                     </div>
 
                     {/* Add to cart section */}
-                    <div className="mt-10 lg::col:start:1 lg:row-start-2 lg:max-w-lg lg:self-start">
+                    <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
                         <div>
                             <div className="mt-10">
-                                <AddToCartButton />
+                                <AddToCartButton product={product} />
                             </div>
                             <div className="mt-6 text-center">
-                                <div className="group inline-flex text-sm font-medium">
+                                <div className="group inline-flex text-sm text-medium">
                                     <Shield
                                         aria-hidden="true"
                                         className="mr-2 h-5 w-5 flex-shrink-0 text-gray-400"
                                     />
                                     <span className="text-muted-foreground hover:text-gray-700">
-                                        30 Day Guarantee
+                                        30 Day Return Guarantee
                                     </span>
                                 </div>
                             </div>

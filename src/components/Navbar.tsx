@@ -17,7 +17,7 @@ const Navbar = async () => {
             <header className="relative bg-white">
                 <MaxWidthWrapper>
                     <div className="border-b border-gray-200">
-                        <div className="flex h-16 tiems-center">
+                        <div className="flex h-16 items-center">
                             {/* TODO: Mobile nav */}
 
                             <div className="ml-3 flex lg:ml-0 items-center">
