@@ -1,3 +1,5 @@
+// "use client"
+
 import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Link from "next/link";
 import { getPayLoadClient } from "@/get-payload";
@@ -5,6 +7,7 @@ import { notFound } from "next/navigation";
 import { formatPrice } from "@/lib/utils";
 import { PRODUCT_CATEGORIES } from "@/config";
 import { Check } from "lucide-react";
+import ImageSlider from "@/components/ImageSlider";
 
 interface PageProps {
     params: {
@@ -47,6 +50,10 @@ const Page = async ({ params }: PageProps) => {
     const category = PRODUCT_CATEGORIES.find(
         ({ value }) => value === product?.category
     )?.label;
+
+    const validUrls = product?.images
+        .map(({ image }) => (typeof image === "string" ? image : image.url))
+        .filter(Boolean) as string[];
 
     return (
         <MaxWidthWrapper className="bg-white">
@@ -93,10 +100,18 @@ const Page = async ({ params }: PageProps) => {
                             </div>
                             <div className="mt-6 flex items-center">
                                 <Check aria-hidden="true" className="h-5 w-5 flex-shrink-0 text-green-500"/> 
-                                <p className="ml-2 text-sm text-muted-foreground">Eligeble for instant delivery</p>
+                                <p className="ml-2 text-sm text-muted-foreground">Eligible for instant delivery</p>
                             </div>
                         </section>
                     </div>
+                    {/* PRODUCT IMAGES */}
+                    <div className="mt-10 lg:col-start-2 lg:row-start-2 lg:mt-0 lg:self-center">
+                        <div className="aspect-square rounded-lg">
+                            <ImageSlider urls={validUrls} />
+                        </div>
+                    </div>
+
+                    {/* Add to cart section */}
                 </div>
             </div>
         </MaxWidthWrapper>
