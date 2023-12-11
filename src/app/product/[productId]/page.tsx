@@ -2,6 +2,8 @@ import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Link from "next/link";
 import { getPayLoadClient } from "@/get-payload";
 import { notFound } from "next/navigation";
+import { formatPrice } from "@/lib/utils";
+import { PRODUCT_CATEGORIES } from "@/config";
 
 interface PageProps {
     params: {
@@ -41,6 +43,10 @@ const Page = async ({ params }: PageProps) => {
 
     if (!product) return notFound()
 
+    const category = PRODUCT_CATEGORIES.find(
+        ({ value }) => value === product?.category
+    )?.label;
+
     return (
         <MaxWidthWrapper className="bg-white">
             <div className="ng-white">
@@ -71,8 +77,17 @@ const Page = async ({ params }: PageProps) => {
                             ))}
                         </ol>
                         <div className="mt-4">
-                            <h1 className="">{product.name}</h1>
+                            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{product.name}</h1>
                         </div>
+
+                        <section className="mt-4">
+                            <div className="flex items-center">
+                                <p className="font-medium text-gray-900">{formatPrice(product.price)}</p>
+                                <div className="ml-4 border-l text-muted-foregorund border-gray-300 pl-4">
+                                    {category}
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
