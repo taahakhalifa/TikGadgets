@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "../../../components/MaxWidthWrapper";
 import Link from "next/link";
 import { getPayLoadClient } from "@/get-payload";
+import { notFound } from "next/navigation";
 
 interface PageProps {
     params: {
@@ -37,6 +38,8 @@ const Page = async ({ params }: PageProps) => {
     });
 
     const [product] = products;
+
+    if (!product) return notFound()
 
     return (
         <MaxWidthWrapper className="bg-white">
