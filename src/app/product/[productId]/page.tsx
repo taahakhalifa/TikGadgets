@@ -4,6 +4,7 @@ import { getPayLoadClient } from "@/get-payload";
 import { notFound } from "next/navigation";
 import { formatPrice } from "@/lib/utils";
 import { PRODUCT_CATEGORIES } from "@/config";
+import { Check } from "lucide-react";
 
 interface PageProps {
     params: {
@@ -86,6 +87,13 @@ const Page = async ({ params }: PageProps) => {
                                 <div className="ml-4 border-l text-muted-foregorund border-gray-300 pl-4">
                                     {category}
                                 </div>
+                            </div>
+                            <div className="mt-4 space-y-6">
+                                <p className="text-base text-muted-foreground">{product.description}</p>
+                            </div>
+                            <div className="mt-6 flex items-center">
+                                <Check aria-hidden="true" className="h-5 w-5 flex-shrink-0 text-green-500"/> 
+                                <p className="ml-2 text-sm text-muted-foreground">Eligeble for instant delivery</p>
                             </div>
                         </section>
                     </div>
