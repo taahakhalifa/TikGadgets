@@ -43,20 +43,20 @@ export const paymentRouter = router({
             const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
                 [];
 
-            line_items.push({
-                price: "price_1OMa85HCgCMakvf9TkuzY485",
-                quantity: 1,
-                adjustable_quantity: {
-                    enabled: false,
-                },
-            });
-
-            filteredProducts.forEach((product) => {
                 line_items.push({
-                    price: product.priceId!,
-                    quantity: 1,
+                  price: "price_1OMa85HCgCMakvf9TkuzY485",
+                  quantity: 1,
+                  adjustable_quantity: {
+                    enabled: false,
+                  },
                 });
-            });
+                
+                filteredProducts.forEach((product) => {
+                    line_items.push({
+                        price: product.priceId!,
+                        quantity: 1,
+                    });
+                });
 
             try {
                 const stripeSession = await stripe.checkout.sessions.create({
@@ -70,6 +70,10 @@ export const paymentRouter = router({
                     },
                     line_items,
                 });
-            } catch (err) {}
+                return { url: stripeSession.url };
+            } catch (err) {
+                console.log(err);
+                return { url: null };
+            }
         }),
 });
