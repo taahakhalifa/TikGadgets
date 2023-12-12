@@ -1,5 +1,14 @@
 import { PRODUCT_CATEGORIES } from "../../config/index";
 import { CollectionConfig } from "payload/types";
+import { BeforeChangeHook } from "payload/dist/collections/config/types";
+import { Product } from "@/payload-types";
+import { stripe } from "../../lib/stripe";
+
+const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
+    const user = req.user;
+
+    return { ...data, user: user.id };
+};
 
 export const Products: CollectionConfig = {
     slug: "products",
@@ -7,6 +16,11 @@ export const Products: CollectionConfig = {
         useAsTitle: "name",
     },
     access: {},
+    hooks: {
+        beforeChange: [
+            addUser,
+        ]
+    },
     fields: [
         {
             name: "user",
