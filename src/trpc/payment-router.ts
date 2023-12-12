@@ -5,7 +5,6 @@ import { getPayLoadClient } from "../get-payload";
 import { stripe } from "../lib/stripe";
 import type Stripe from "stripe";
 
-
 export const paymentRouter = router({
     createSession: privateProcedure
         .input(z.object({ productIds: z.array(z.string()) }))
@@ -50,6 +49,13 @@ export const paymentRouter = router({
                 adjustable_quantity: {
                     enabled: false,
                 },
+            });
+
+            filteredProducts.forEach((product) => {
+                line_items.push({
+                    price: product.priceId!,
+                    quantity: 1,
+                });
             });
 
             try {
