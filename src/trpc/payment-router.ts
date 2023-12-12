@@ -3,6 +3,8 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { getPayLoadClient } from "../get-payload";
 import { stripe } from "../lib/stripe";
+import type Stripe from "stripe";
+
 
 export const paymentRouter = router({
     createSession: privateProcedure
@@ -39,6 +41,17 @@ export const paymentRouter = router({
                 },
             });
 
+            const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =
+                [];
+
+            line_items.push({
+                price: "price_1OMa85HCgCMakvf9TkuzY485",
+                quantity: 1,
+                adjustable_quantity: {
+                    enabled: false,
+                },
+            });
+
             try {
                 const stripeSession = await stripe.checkout.sessions.create({
                     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
@@ -49,6 +62,7 @@ export const paymentRouter = router({
                         userId: user.id,
                         orderId: order.id,
                     },
+                    line_items,
                 });
             } catch (err) {}
         }),
