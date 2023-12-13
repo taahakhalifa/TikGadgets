@@ -5,6 +5,7 @@ import { getPayLoadClient } from "@/get-payload";
 import { notFound, redirect } from "next/navigation";
 import { Product } from "@/payload-types";
 import { PRODUCT_CATEGORIES } from "@/config";
+import { formatPrice } from "@/lib/utils";
 
 interface PageProps {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -37,6 +38,11 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
     if (orderUserId !== user?.id) {
         return redirect(`/sign-in?origin=thank-you?orderId=${order.id}`);
     }
+
+    const products = order.products as Product[];
+    const orderTotal = products.reduce((total, product) => {
+        return total + product.price;
+    }, 0);
 
     return (
         <main className="relative lg:min-h-full">
@@ -111,16 +117,45 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
                                                     ) : null}
                                                 </div>
                                                 <div className="flex-auto flex flex-col justify-between">
-                                                  <div className="space-y-1">
-                                                    <h3 className="text-gray-900">{product.name}</h3>
-                                                    <p className="my-1">Category: {category}</p>
-                                                  </div>
+                                                    <div className="space-y-1">
+                                                        <h3 className="text-gray-900">
+                                                            {product.name}
+                                                        </h3>
+                                                        <p className="my-1">
+                                                            Category: {category}
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                                <p className="flex-none font-medium text-gray-900">
+                                                    {formatPrice(product.price)}
+                                                </p>
                                             </li>
                                         );
                                     }
                                 )}
                             </ul>
+                            <div className="space-y-6 border-t border-gray-200 pt-6 text-sm font-medium text-muted-foreground">
+                                <div className="flex justify-between">
+                                    <p>Subtotal</p>
+                                    <p className="text-gray-900">
+                                        {formatPrice(orderTotal)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="space-y-6 border-t border-gray-200 pt-6 text-sm font-medium text-muted-foreground">
+                                <div className="flex justify-between">
+                                    <p>Shipping Fee</p>
+                                    <p className="text-gray-900">
+                                        {formatPrice(3.99)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900">
+                                <p className="text-base">Total</p>
+                                <p className="text-base">
+                                    {formatPrice(orderTotal + 3.99)}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
