@@ -2,6 +2,7 @@ import { getServerSideUser } from "@/lib/payload-utils";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { getPayLoadClient } from "@/get-payload";
+import { notFound } from "next/navigation";
 
 interface PageProps {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -23,6 +24,9 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
         }
       }
     })
+
+    const [order] = orders
+    if(!order) return notFound()
 
     return (
         <main className="relative lg:min-h-full">
