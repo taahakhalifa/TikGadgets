@@ -76,7 +76,7 @@ export const paymentRouter = router({
                 return { url: null };
             }
         }),
-    pollOrderStatus: privateProcedure
+    pullOrderStatus: privateProcedure
         .input(z.object({ orderId: z.string() }))
         .query(async ({ input }) => {
             const { orderId } = input;
