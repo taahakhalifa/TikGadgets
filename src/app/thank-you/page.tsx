@@ -2,7 +2,7 @@ import { getServerSideUser } from "@/lib/payload-utils";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { getPayLoadClient } from "@/get-payload";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface PageProps {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -14,19 +14,27 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
 
     const { user } = await getServerSideUser(nextCookies);
 
-    const payload = await getPayLoadClient()
-    const {docs: orders} = await payload.find({
-      collection: "orders",
-      depth: 2,
-      where: {
-        id: {
-          equals: orderId
-        }
-      }
-    })
+    const payload = await getPayLoadClient();
+    const { docs: orders } = await payload.find({
+        collection: "orders",
+        depth: 2,
+        where: {
+            id: {
+                equals: orderId,
+            },
+        },
+    });
 
-    const [order] = orders
-    if(!order) return notFound()
+    const [order] = orders;
+
+    if (!order) return notFound();
+
+    const orderUserId =
+        typeof order.user === "string" ? order.user : order.user.id;
+
+    if (orderUserId !== user?.id) {
+        return redirect(`/sign-in?origin=thank-you?orderId=${order.id}`);
+    }
 
     return (
         <main className="relative lg:min-h-full">
