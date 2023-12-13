@@ -3,6 +3,8 @@ import Image from "next/image";
 import { cookies } from "next/headers";
 import { getPayLoadClient } from "@/get-payload";
 import { notFound, redirect } from "next/navigation";
+import { Product } from "@/payload-types";
+import { PRODUCT_CATEGORIES } from "@/config";
 
 interface PageProps {
     searchParams: { [key: string]: string | string[] | undefined };
@@ -67,12 +69,58 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
                                 .
                             </p>
                         ) : (
-                            <p className="mt-2 text-base text-muted-foreground">We appreciate your order, and we&apos;re currently processing it. So hang tight and we&apos;ll send you confirmation very soon!</p>
+                            <p className="mt-2 text-base text-muted-foreground">
+                                We appreciate your order, and we&apos;re
+                                currently processing it. So hang tight and
+                                we&apos;ll send you confirmation very soon!
+                            </p>
                         )}
 
                         <div className="mt-16 text-sm font-medium">
-                          <div className="text-muted-foreground">Order number:</div>
-                          <div className="mt-2 text-gray-900">{order.id}</div>
+                            <div className="text-muted-foreground">
+                                Order number:
+                            </div>
+                            <div className="mt-2 text-gray-900">{order.id}</div>
+                            <ul className="mt-6 divide-y divide-gray-200 border-t border-gray-200 text-sm font-medium text-muted-foreground">
+                                {(order.products as Product[]).map(
+                                    (product) => {
+                                        const category =
+                                            PRODUCT_CATEGORIES.find(
+                                                (category) =>
+                                                    category.value ===
+                                                    product.category
+                                            )?.label;
+
+                                        const { image } = product.images[0];
+
+                                        return (
+                                            <li
+                                                key={product.id}
+                                                className="flex space-x-6 py-6"
+                                            >
+                                                <div className="relative h-24 w-24">
+                                                    {typeof image !==
+                                                        "string" &&
+                                                    image.url ? (
+                                                        <Image
+                                                            fill
+                                                            src={image.url}
+                                                            alt={`${product.name} image`}
+                                                            className="flex-none rounded-md bg-gray-100 object-cover object-center"
+                                                        />
+                                                    ) : null}
+                                                </div>
+                                                <div className="flex-auto flex flex-col justify-between">
+                                                  <div className="space-y-1">
+                                                    <h3 className="text-gray-900">{product.name}</h3>
+                                                    <p className="my-1">Category: {category}</p>
+                                                  </div>
+                                                </div>
+                                            </li>
+                                        );
+                                    }
+                                )}
+                            </ul>
                         </div>
                     </div>
                 </div>
