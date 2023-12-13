@@ -11,7 +11,7 @@ interface PaymentStatusProp {
 }
 
 const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProp) => {
-  const router = useRouter()
+    const router = useRouter();
     const { data } = trpc.payment.pullOrderStatus.useQuery(
         { orderId },
         {
@@ -21,17 +21,19 @@ const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProp) => {
     );
 
     useEffect(() => {
-      if(data?.isPaid) router.refresh()
-    }, [data?.isPaid, router])
+        if (data?.isPaid) router.refresh();
+    }, [data?.isPaid, router]);
 
     return (
         <div className="mt-16 grid grid-cols-2 gap-x-4 text-sm text-gray-600">
             <div>
-                <p className="font-mredium text-gray-900">Shipping To</p>
+                <p className="font-medium text-gray-900">Shipping To:</p>
                 <p>{orderEmail}</p>
             </div>
-            <div className="font-medium text-gray-900">Order Status</div>
-            <p>{isPaid ? "Payment successful" : "Pending Payment"}</p>
+            <div>
+                <div className="font-medium text-gray-900">Order Status:</div>
+                <p>{isPaid ? "Payment successful" : "Pending Payment"}</p>
+            </div>
         </div>
     );
 };
