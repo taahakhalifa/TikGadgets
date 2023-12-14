@@ -52,5 +52,20 @@ export const stripeWebhookHandler = async (
 
         if (!user)
             return res.status(404).json({ error: "No such user exists." });
+
+            
+        const { docs: orders } = await payload.find({
+            collection: "orders",
+            where: {
+                id: {
+                    equals: session.metadata.orderId,
+                },
+            },
+        });
+
+        const [order] = orders;
+
+        if (!order)
+            return res.status(404).json({ error: "No such order exists." });
     }
 };
