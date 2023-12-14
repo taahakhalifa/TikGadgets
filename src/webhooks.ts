@@ -27,4 +27,11 @@ export const stripeWebhookHandler = async (
                 }`
             );
     }
+
+    const session = event.data.object as Stripe.Checkout.Session;
+    if (!session?.metadata?.userId || !session?.metadata?.orderId) {
+        return res
+            .status(400)
+            .send(`Webhook Error: No user present in metadata`);
+    }
 };
