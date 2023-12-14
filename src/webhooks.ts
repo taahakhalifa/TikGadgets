@@ -2,6 +2,7 @@ import express from "express";
 import { WebhookRequest } from "./server";
 import { stripe } from "./lib/stripe";
 import type Stripe from "stripe";
+import { getPayLoadClient } from "./get-payload";
 
 export const stripeWebhookHandler = async (
     req: express.Request,
@@ -33,5 +34,23 @@ export const stripeWebhookHandler = async (
         return res
             .status(400)
             .send(`Webhook Error: No user present in metadata`);
+    }
+
+    if (event.type === "checkout.session.completed") {
+        const payload = await getPayLoadClient();
+
+        const { docs: users } = await payload.find({
+            collection: "users",
+            where: {
+                id: {
+                    equals: session.metadata.userId,
+                },
+            },
+        });
+
+        const [user] = users;
+
+        if (!user)
+            return res.status(404).json({ error: "No such user exists." });
     }
 };
