@@ -36,7 +36,7 @@ const Page = () => {
         0
     );
 
-    const fee = 3.99;
+    const fee = 2.99;
 
     return (
         <div className="bg-white">

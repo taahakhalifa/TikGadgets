@@ -25,7 +25,7 @@ const Cart = () => {
         0
     );
 
-    const fee = 24.3432;
+    const fee = 2.99;
 
     return (
         <Sheet>
