@@ -20,10 +20,14 @@ export const Users: CollectionConfig = {
         },
     },
     access: {
-        read: adminsAndUser,
         create: () => true,
+        read: adminsAndUser,
         update: ({req}) => req.user.role === "admin",
         delete: ({req}) => req.user.role === "admin"
+    },
+    admin: {
+        hidden: ({user}) => user.role !== "admin",
+        defaultColumns: ["id"]
     },
     fields: [
         {
