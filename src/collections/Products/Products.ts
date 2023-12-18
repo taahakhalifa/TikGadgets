@@ -28,6 +28,9 @@ const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
                 typeof product === "object" ? product.id : product
             ) || []),
         ];
+
+        const createdProductIDs = allIDs.filter((id, index) => allIDs.indexOf(id) === index)
+
     }
 };
 
