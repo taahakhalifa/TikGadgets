@@ -1,6 +1,9 @@
 import { PRODUCT_CATEGORIES } from "../../config/index";
 import { CollectionConfig } from "payload/types";
-import { BeforeChangeHook } from "payload/dist/collections/config/types";
+import {
+    BeforeChangeHook,
+    AfterChangeHook,
+} from "payload/dist/collections/config/types";
 import { Product } from "@/payload-types";
 import { stripe } from "../../lib/stripe";
 
@@ -8,6 +11,15 @@ const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
     const user = req.user;
 
     return { ...data, user: user.id };
+};
+
+const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
+
+    const fullUser = await req.payload.findByID({
+        collection: "users",
+        id: req.user.id,
+    });
+    
 };
 
 export const Products: CollectionConfig = {
