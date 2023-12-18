@@ -14,7 +14,6 @@ const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
 };
 
 const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
-
     const fullUser = await req.payload.findByID({
         collection: "users",
         id: req.user.id,
@@ -29,17 +28,19 @@ const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
             ) || []),
         ];
 
-        const createdProductIDs = allIDs.filter((id, index) => allIDs.indexOf(id) === index)
+        const createdProductIDs = allIDs.filter(
+            (id, index) => allIDs.indexOf(id) === index
+        );
 
-        const dataToUpdate = [...createdProductIDs, doc.id]
+        const dataToUpdate = [...createdProductIDs, doc.id];
 
         await req.payload.update({
             collection: "users",
             id: fullUser.id,
             data: {
-                products: dataToUpdate
-            }
-        })
+                products: dataToUpdate,
+            },
+        });
     }
 };
 
@@ -50,6 +51,7 @@ export const Products: CollectionConfig = {
     },
     access: {},
     hooks: {
+        afterChange: [syncUser],
         beforeChange: [
             addUser,
             async (args) => {
