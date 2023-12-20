@@ -78,6 +78,8 @@ export const Products: CollectionConfig = {
     },
     access: {
         read: isAdminOrHasAccess(),
+        update: isAdminOrHasAccess(),
+        delete: isAdminOrHasAccess(),
     },
     hooks: {
         afterChange: [syncUser],
