@@ -74,10 +74,7 @@ const Page = () => {
                             </div>
                         ) : null}
                         <ul
-                            className={cn({
-                                "divide-y divide-gray-200 border-b border-t border-gray-200":
-                                    isMounted && items.length > 0,
-                            })}
+                       
                         >
                             {isMounted &&
                                 items.map(({ product }) => {

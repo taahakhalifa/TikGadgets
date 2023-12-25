@@ -13,6 +13,7 @@ import { useCart } from "@/hooks/use-cart";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { formatPrice } from "../lib/utils";
 import CartItem from "./CartItem";
 import { ScrollArea } from "./ui/scroll-area";
@@ -20,6 +21,13 @@ import { ScrollArea } from "./ui/scroll-area";
 const Cart = () => {
     const { items } = useCart();
     const itemCount = items.length;
+
+    const [isMounted, setIsMounted] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, [])
+
     const cartTotal = items.reduce(
         (total, { product }) => total + product.price,
         0
@@ -35,7 +43,7 @@ const Cart = () => {
                     className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                 />
                 <span className="ml-2 text-sm font-medium text-gray-600 group-hover:text-gray-800">
-                    {itemCount}
+                {isMounted ? itemCount : 0}
                 </span>
             </SheetTrigger>
             <SheetContent className="flex w-full flex-col pr-0 sm:max-2-lg">
@@ -47,7 +55,10 @@ const Cart = () => {
                         <div className="flex w-full flex-col pr-6">
                             <ScrollArea>
                                 {items.map(({ product }) => (
-                                    <CartItem key={product.id} product={product}/>
+                                    <CartItem
+                                        key={product.id}
+                                        product={product}
+                                    />
                                 ))}
                             </ScrollArea>
                             Cart Item
