@@ -1,6 +1,5 @@
 import { formatPrice } from "../../lib/utils";
 import { Product } from "../../payload-types";
-
 import {
     Body,
     Container,
@@ -16,10 +15,8 @@ import {
     Text,
     render,
 } from "@react-email/components";
-
-import * as React from "react";
-
 import { format } from "date-fns";
+import * as React from "react";
 
 interface ReceiptEmailProps {
     email: string;
@@ -34,12 +31,12 @@ export const ReceiptEmail = ({
     orderId,
     products,
 }: ReceiptEmailProps) => {
-    const total = products.reduce((acc, curr) => acc + curr.price, 0) + 1;
+    const total = products.reduce((acc, curr) => acc + curr.price, 0) + 2.99;
 
     return (
         <Html>
             <Head />
-            <Preview>Your DigitalHippo Receipt</Preview>
+            <Preview>Your TikGadgets Receipt</Preview>
 
             <Body style={main}>
                 <Container style={container}>
@@ -49,7 +46,7 @@ export const ReceiptEmail = ({
                                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}/hippo-email-sent.png`}
                                 width="100"
                                 height="100"
-                                alt="DigitalHippo"
+                                alt="TikGadgets"
                             />
                         </Column>
 
@@ -126,12 +123,6 @@ export const ReceiptEmail = ({
                                                 : product.description}
                                         </Text>
                                     ) : null}
-                                    <Link
-                                        href={`${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${orderId}`}
-                                        style={productLink}
-                                    >
-                                        Download Asset
-                                    </Link>
                                 </Column>
 
                                 <Column
@@ -148,17 +139,14 @@ export const ReceiptEmail = ({
 
                     <Section>
                         <Column style={{ width: "64px" }}></Column>
-                        <Column
-                            style={{
-                                paddingLeft: "40px",
-                                paddingTop: 20,
-                            }}
-                        >
+                        <Column style={{ paddingLeft: "40px", paddingTop: 20 }}>
                             <Text style={productTitle}>Transaction Fee</Text>
                         </Column>
 
                         <Column style={productPriceWrapper} align="right">
-                            <Text style={productPrice}>{formatPrice(1)}</Text>
+                            <Text style={productPrice}>
+                                {formatPrice(2.99)}
+                            </Text>
                         </Column>
                     </Section>
 
@@ -182,7 +170,7 @@ export const ReceiptEmail = ({
                         <Link href="#">Privacy Policy </Link>
                     </Text>
                     <Text style={footerCopyright}>
-                        Copyright © 2023 DigitalHippo Inc. <br />{" "}
+                        Copyright © 2023 TikGadgets Inc. <br />{" "}
                         <Link href="#">All rights reserved</Link>
                     </Text>
                 </Container>
@@ -192,9 +180,7 @@ export const ReceiptEmail = ({
 };
 
 export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
-    render(<ReceiptEmail {...props} />, {
-        pretty: true,
-    });
+    render(<ReceiptEmail {...props} />, { pretty: true });
 
 const main = {
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
