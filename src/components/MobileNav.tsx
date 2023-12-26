@@ -1,16 +1,32 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PRODUCT_CATEGORIES } from "../config";
 import Image from "next/image";
 import Link from "next/link";
 import { User } from "../payload-types";
 import { useAuth } from "../hooks/use-auth";
+import { usePathname } from "next/navigation";
 
-const MobileNav = ({ user }: { user: User | null }) => {
+interface MobileNavProps {
+  user: User | null;
+}
+
+const MobileNav = ({user}: MobileNavProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { signOut } = useAuth();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
+    const closeOnCurrent = (href: string) => {
+        if (pathname === href) {
+            setIsOpen(false);
+        }
+    };
 
     if (!isOpen)
         return (
@@ -87,7 +103,7 @@ const MobileNav = ({ user }: { user: User | null }) => {
                             </ul>
                         </div>
 
-                        {user !== null ? (
+                        {user ? (
                             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                                 <button
                                     onClick={signOut}
@@ -101,6 +117,9 @@ const MobileNav = ({ user }: { user: User | null }) => {
                             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                                 <div className="flow-root">
                                     <Link
+                                        onClick={() =>
+                                            closeOnCurrent("/sign-in")
+                                        }
                                         href="/sign-in"
                                         className="-m-2 block p-2 font-medium text-gray-900"
                                     >
@@ -109,6 +128,9 @@ const MobileNav = ({ user }: { user: User | null }) => {
                                 </div>
                                 <div className="flow-root">
                                     <Link
+                                        onClick={() =>
+                                            closeOnCurrent("/sign-up")
+                                        }
                                         href="/sign-up"
                                         className="-m-2 block p-2 font-medium text-gray-900"
                                     >

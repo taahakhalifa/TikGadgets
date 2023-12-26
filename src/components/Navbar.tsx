@@ -19,7 +19,7 @@ const Navbar = async () => {
                 <MaxWidthWrapper>
                     <div className="border-b border-gray-200">
                         <div className="flex h-16 items-center">
-                            <MobileNav />
+                            <MobileNav user={user} />
 
                             <div className="ml-3 flex lg:ml-0 items-center">
                                 <Link href="/">
@@ -27,7 +27,7 @@ const Navbar = async () => {
                                 </Link>
                             </div>
                             <div className="hidden z-50 lg:ml-8 lg:block lg:self-stretch">
-                                <NavItems/>
+                                <NavItems />
                             </div>
                             <div className="ml-auto flex items-center">
                                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -48,7 +48,7 @@ const Navbar = async () => {
                                         />
                                     )}
                                     {user ? (
-                                        <UserAccountNav user={user}/>
+                                        <UserAccountNav user={user} />
                                     ) : (
                                         <Link
                                             href="/sign-up"
