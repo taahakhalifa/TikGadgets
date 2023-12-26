@@ -5,9 +5,12 @@ import { useState } from "react";
 import { PRODUCT_CATEGORIES } from "../config";
 import Image from "next/image";
 import Link from "next/link";
+import { User } from "../payload-types";
+import { useAuth } from "../hooks/use-auth";
 
-const MobileNav = () => {
+const MobileNav = ({ user }: { user: User | null }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { signOut } = useAuth();
 
     if (!isOpen)
         return (
@@ -30,7 +33,7 @@ const MobileNav = () => {
 
             <div className="fixed overflow-y-scroll overscroll-y-none inset-0 z-40 flex">
                 <div className="w-4/5">
-                    <div className="relative flex w-full max-w-sm flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+                    <div className="relative flex w-full max-w-sm flex-col overflow-y-auto bg-white shadow-xl">
                         <div className="flex px-4 pb-2 pt-5">
                             <button
                                 type="button"
@@ -83,6 +86,37 @@ const MobileNav = () => {
                                 ))}
                             </ul>
                         </div>
+
+                        {user !== null ? (
+                            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                <button
+                                    onClick={signOut}
+                                    type="button"
+                                    className="-m-2 block p-2 font-medium text-gray-900"
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                <div className="flow-root">
+                                    <Link
+                                        href="/sign-in"
+                                        className="-m-2 block p-2 font-medium text-gray-900"
+                                    >
+                                        Sign in
+                                    </Link>
+                                </div>
+                                <div className="flow-root">
+                                    <Link
+                                        href="/sign-up"
+                                        className="-m-2 block p-2 font-medium text-gray-900"
+                                    >
+                                        Sign up
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
