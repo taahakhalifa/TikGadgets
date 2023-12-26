@@ -10,10 +10,10 @@ import { useAuth } from "../hooks/use-auth";
 import { usePathname } from "next/navigation";
 
 interface MobileNavProps {
-  user: User | null;
+    user: User | null;
 }
 
-const MobileNav = ({user}: MobileNavProps) => {
+const MobileNav = ({ user }: MobileNavProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { signOut } = useAuth();
     const pathname = usePathname();
@@ -108,7 +108,7 @@ const MobileNav = ({user}: MobileNavProps) => {
                                 <button
                                     onClick={signOut}
                                     type="button"
-                                    className="-m-2 block p-2 font-medium text-gray-900"
+                                    className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
                                 >
                                     Sign Out
                                 </button>
@@ -121,7 +121,7 @@ const MobileNav = ({user}: MobileNavProps) => {
                                             closeOnCurrent("/sign-in")
                                         }
                                         href="/sign-in"
-                                        className="-m-2 block p-2 font-medium text-gray-900"
+                                        className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
                                     >
                                         Sign in
                                     </Link>
@@ -132,7 +132,7 @@ const MobileNav = ({user}: MobileNavProps) => {
                                             closeOnCurrent("/sign-up")
                                         }
                                         href="/sign-up"
-                                        className="-m-2 block p-2 font-medium text-gray-900"
+                                        className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
                                     >
                                         Sign up
                                     </Link>
