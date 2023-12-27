@@ -4,13 +4,13 @@ import { trpc } from "@/trpc/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface PaymentStatusProp {
+interface PaymentStatusProps {
     orderEmail: string;
     orderId: string;
     isPaid: boolean;
 }
 
-const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProp) => {
+const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProps) => {
     const router = useRouter();
     const { data } = trpc.payment.pullOrderStatus.useQuery(
         { orderId },
