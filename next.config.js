@@ -6,6 +6,10 @@ const nextConfig = {
                 hostname: "localhost",
                 protocol: "http",
             },
+            {
+                hostname: "https://dainty-donut-9a7c45.netlify.app",
+                protocol: "https",
+            },
         ],
     },
 };
