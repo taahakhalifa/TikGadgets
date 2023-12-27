@@ -19,7 +19,7 @@ const Navbar = async () => {
                 <MaxWidthWrapper>
                     <div className="border-b border-gray-200">
                         <div className="flex h-16 items-center">
-                            <MobileNav user={user} />
+                            {/* <MobileNav user={user} /> */}
 
                             <div className="ml-3 flex lg:ml-0 items-center">
                                 <Link href="/">
@@ -78,6 +78,7 @@ const Navbar = async () => {
                                     </div>
                                 </div>
                             </div>
+                            <MobileNav user={user} />
                         </div>
                     </div>
                 </MaxWidthWrapper>

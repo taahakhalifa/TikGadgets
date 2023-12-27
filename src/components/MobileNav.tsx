@@ -1,148 +1,126 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
 import { PRODUCT_CATEGORIES } from "../config";
 import Image from "next/image";
 import Link from "next/link";
 import { User } from "../payload-types";
 import { useAuth } from "../hooks/use-auth";
-import { usePathname } from "next/navigation";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface MobileNavProps {
     user: User | null;
 }
 
 const MobileNav = ({ user }: MobileNavProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
     const { signOut } = useAuth();
-    const pathname = usePathname();
 
-    useEffect(() => {
-        setIsOpen(false);
-    }, [pathname]);
-
-    const closeOnCurrent = (href: string) => {
-        if (pathname === href) {
-            setIsOpen(false);
-        }
-    };
-
-    if (!isOpen)
-        return (
-            <div>
+    return (
+        <Sheet>
+            <SheetTrigger className="group -m-2 flex items-center p-2">
                 <button
                     type="button"
-                    onClick={() => setIsOpen(true)}
                     className="lg:hidden relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 "
                 >
                     <Menu className="h-6 w-6" aria-hidden="true" />
                 </button>
-            </div>
-        );
-
-    return (
-        <div>
-            <div className="relative z-40 lg:hidden">
-                <div className="fixed inset-0 bg-black bg-opacity-25" />
-            </div>
-
-            <div className="fixed overflow-y-scroll overscroll-y-none inset-0 z-40 flex">
-                <div className="w-4/5">
-                    <div className="relative flex w-full max-w-sm flex-col overflow-y-auto bg-white shadow-xl">
-                        <div className="flex px-4 pb-2 pt-5">
-                            <button
-                                type="button"
-                                onClick={() => setIsOpen(false)}
-                                className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
-                            >
-                                <X className="h-6 w-6" aria-hidden="true" />
-                            </button>
-                        </div>
-
-                        <div className="mt-2">
-                            <ul>
-                                {PRODUCT_CATEGORIES.map((category) => (
-                                    <li
-                                        key={category.label}
-                                        className="space-y-10 px-4 pb-8 pt-10"
-                                    >
-                                        <div className="border-b border-gray-200">
-                                            <div className="-mb-px flex">
-                                                <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 py-4 text-base font-semibold">
-                                                    {category.label}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-y-10 gap-x-4">
-                                            {category.feature.map((item) => (
-                                                <div
-                                                    key={item.name}
-                                                    className="group relative text-sm"
-                                                >
-                                                    <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                        <Image
-                                                            fill
-                                                            src={item.imageSrc}
-                                                            alt="product category image"
-                                                            className="object-cover object-center"
-                                                        />
+            </SheetTrigger>
+            <SheetContent className="flex w-full flex-col lg:hidden">
+                <ScrollArea>
+                    <div>
+                        <div className="w-full">
+                            <div className="relative flex w-full max-w-sm flex-col">
+                                <div className="mt-2">
+                                    <ul>
+                                        {PRODUCT_CATEGORIES.map((category) => (
+                                            <li
+                                                key={category.label}
+                                                className="space-y-10 px-4 pb-8"
+                                            >
+                                                <div className="border-b border-gray-200">
+                                                    <div className="-mb-px flex">
+                                                        <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 py-4 text-base font-semibold">
+                                                            {category.label}
+                                                        </p>
                                                     </div>
-                                                    <Link
-                                                        href={item.href}
-                                                        className="mt-6 block font-medium text-gray-900"
-                                                    >
-                                                        {item.name}
-                                                    </Link>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
 
-                        {user ? (
-                            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                                <button
-                                    onClick={signOut}
-                                    type="button"
-                                    className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
-                                >
-                                    Sign Out
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                                <div className="flow-root">
-                                    <Link
-                                        onClick={() =>
-                                            closeOnCurrent("/sign-in")
-                                        }
-                                        href="/sign-in"
-                                        className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
-                                    >
-                                        Sign in
-                                    </Link>
+                                                <div className="grid grid-cols-2 gap-y-10 gap-x-4">
+                                                    {category.feature.map(
+                                                        (item) => (
+                                                            <div
+                                                                key={item.name}
+                                                                className="group relative text-sm"
+                                                            >
+                                                                <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                                                    <Image
+                                                                        fill
+                                                                        src={
+                                                                            item.imageSrc
+                                                                        }
+                                                                        alt="product category image"
+                                                                        className="object-cover object-center"
+                                                                    />
+                                                                </div>
+                                                                <Link
+                                                                    href={
+                                                                        item.href
+                                                                    }
+                                                                    className="mt-6 block font-medium text-gray-900"
+                                                                >
+                                                                    {item.name}
+                                                                </Link>
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <div className="flow-root">
-                                    <Link
-                                        onClick={() =>
-                                            closeOnCurrent("/sign-up")
-                                        }
-                                        href="/sign-up"
-                                        className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
-                                    >
-                                        Sign up
-                                    </Link>
-                                </div>
+                                {user ? (
+                                    <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                        <SheetTrigger asChild>
+                                            <button
+                                                onClick={signOut}
+                                                type="button"
+                                                className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
+                                            >
+                                                Sign Out
+                                            </button>
+                                        </SheetTrigger>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                                        <div className="flow-root">
+                                            <SheetTrigger asChild>
+                                                <Link
+                                                    href="/sign-in"
+                                                    className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
+                                                >
+                                                    Sign in
+                                                </Link>
+                                            </SheetTrigger>
+                                        </div>
+                                        <div className="flow-root">
+                                            <SheetTrigger asChild>
+                                                <Link
+                                                    href="/sign-up"
+                                                    className="-m-2 block p-2 font-medium text-gray-900 hover:text-gray-600"
+                                                >
+                                                    Sign up
+                                                </Link>
+                                            </SheetTrigger>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </ScrollArea>
+            </SheetContent>
+        </Sheet>
     );
 };
 
