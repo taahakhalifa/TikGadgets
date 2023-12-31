@@ -25,7 +25,7 @@ export default function RootLayout({
             >
                 <main className="relative flex flex-col min-h-screen">
                     <Providers>
-                        {/* @ts-expect-error Server Component */}
+                        {/* @ts-ignore */}
                         <Navbar />
                         <div className="flex-grow flex-1">{children}</div>
                         <Footer />
