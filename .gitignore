@@ -28,7 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
-
+src/product_files
 # vercel
 .vercel
 
@@ -41,6 +41,6 @@ dist
 .netlify
 
 # Media and Product Files removed
-../src/media/
-../src/product_files/
+/src/media
+/src/product_files
 
