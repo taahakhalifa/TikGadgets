@@ -41,9 +41,6 @@ dist
 .netlify
 
 # Media and Product Files removed
-src/media/
-src/product_files/
-/media/
-/product_files/
-
+../src/media/
+../src/product_files/
 
