@@ -50,19 +50,19 @@ const isAdminOrHasAccess =
         const user = _user as User | undefined;
 
         if (!user) return false;
-        if (user.role === "admin") return true
-            const userProductIDs = (user.products || []).reduce<Array<string>>(
-                (acc, product) => {
-                    if (!product) return acc;
-                    if (typeof product === "string") {
-                        acc.push(product);
-                    } else {
-                        acc.push(product.id);
-                    }
-                    return acc;
-                },
-                []
-            );
+        if (user.role === "admin") return true;
+        const userProductIDs = (user.products || []).reduce<Array<string>>(
+            (acc, product) => {
+                if (!product) return acc;
+                if (typeof product === "string") {
+                    acc.push(product);
+                } else {
+                    acc.push(product.id);
+                }
+                return acc;
+            },
+            []
+        );
 
         return {
             id: {
@@ -167,7 +167,7 @@ export const Products: CollectionConfig = {
             required: true,
         },
         {
-            name: "product_status",
+            name: "approvedForSale",
             label: "Product Status",
             type: "select",
             defaultValue: "pending",
@@ -178,7 +178,7 @@ export const Products: CollectionConfig = {
             },
             options: [
                 {
-                    label: "Pending Verification",
+                    label: "Pending verification",
                     value: "pending",
                 },
                 {
@@ -186,16 +186,8 @@ export const Products: CollectionConfig = {
                     value: "approved",
                 },
                 {
-                    label: "In Transit",
-                    value: "in_transit",
-                },
-                {
-                    label: "Delivered",
-                    value: "delivered",
-                },
-                {
-                    label: "Cancelled",
-                    value: "cancelled",
+                    label: "Denied",
+                    value: "denied",
                 },
             ],
         },

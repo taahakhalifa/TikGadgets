@@ -39,6 +39,9 @@ export const appRouter = router({
             } = await payload.find({
                 collection: "products",
                 where: {
+                    approvedForSale: {
+                        equals: "approved",
+                    },
                     ...parsedQueryOpts,
                 },
                 sort,
