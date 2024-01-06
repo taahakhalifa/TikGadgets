@@ -27,7 +27,7 @@ export const Media: CollectionConfig = {
     access: {
         read: async ({ req }) => {
             const referer = req.headers.referer;
-            if (!req.user || !referer?.includes("sell")) {
+            if (!req.user || !referer?.includes("seller-dashboard")) {
                 return true;
             }
 
