@@ -51,6 +51,7 @@ const isAdminOrHasAccess =
 
         if (!user) return false;
         if (user.role === "admin") return true;
+
         const userProductIDs = (user.products || []).reduce<Array<string>>(
             (acc, product) => {
                 if (!product) return acc;
@@ -75,6 +76,7 @@ export const Products: CollectionConfig = {
     slug: "products",
     admin: {
         useAsTitle: "name",
+        hidden: ({ user }) => user.role !== "admin"
     },
     access: {
         read: isAdminOrHasAccess(),
