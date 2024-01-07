@@ -1,29 +1,8 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import { ArrowDownToLine, CheckCircle, Store } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { perks } from "@/config";
 import Link from "next/link";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import ProductReel from "../components/ProductReel";
-
-const perks = [
-    {
-        name: "Unique Products",
-        Icon: Store,
-        description:
-            "Explore a diverse collection of unique and interesting products.",
-    },
-    {
-        name: "Fast Shipping",
-        Icon: ArrowDownToLine,
-        description:
-            "Enjoy quick and reliable shipping services. Your purchases will arrive promptly and in great condition.",
-    },
-    {
-        name: "Quality Assurance",
-        Icon: CheckCircle,
-        description:
-            "We guarantee the quality of every product. Our team carefully verifies each item to ensure your satisfaction.",
-    },
-];
 
 export default function Home() {
     return (
@@ -46,7 +25,11 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <ProductReel query={{sort: "desc", limit: 4}} title="Brand new" href="/products"/>
+                <ProductReel
+                    query={{ sort: "desc", limit: 4 }}
+                    title="Brand new"
+                    href="/products"
+                />
             </MaxWidthWrapper>
 
             <section className="border-t border-gray-200 bg-gray-50">

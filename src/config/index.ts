@@ -1,3 +1,5 @@
+import { ArrowDownToLine, CheckCircle, Store } from "lucide-react";
+
 export const PRODUCT_CATEGORIES = [
   {
     label: "Kitchen Gadgets",
@@ -61,5 +63,26 @@ export const PRODUCT_CATEGORIES = [
         imageSrc: "/nav/wellness/bestsellers.jpg",
       },
     ],
+  },
+];
+
+export const perks = [
+  {
+      name: "Unique Products",
+      Icon: Store,
+      description:
+          "Explore a diverse collection of unique and interesting products.",
+  },
+  {
+      name: "Fast Shipping",
+      Icon: ArrowDownToLine,
+      description:
+          "Enjoy quick and reliable shipping services. Your purchases will arrive promptly and in great condition.",
+  },
+  {
+      name: "Quality Assurance",
+      Icon: CheckCircle,
+      description:
+          "We guarantee the quality of every product. Our team carefully verifies each item to ensure your satisfaction.",
   },
 ];
