@@ -52,6 +52,9 @@ const NavItem = ({ category, handleOpen, isOpen, isAnyOpen }: NavItemProps) => {
                             <div className="grid grid-cols-4 gap-x-8 gay-y-10 py-16">
                                 <div className="col-span-4 col-start-1 grid grid-cols-3 gap-x-8">
                                     {category.feature.map((item) => {
+                                        console.log(item);
+                                        console.log(typeof item.imageSrc);
+
                                         return (
                                             <div
                                                 key={item.name}
@@ -71,7 +74,12 @@ const NavItem = ({ category, handleOpen, isOpen, isAnyOpen }: NavItemProps) => {
                                                 >
                                                     {item.name}
                                                 </Link>
-                                                <p className="mt-1" aria-hidden="true">Shop Now</p>
+                                                <p
+                                                    className="mt-1"
+                                                    aria-hidden="true"
+                                                >
+                                                    Shop Now
+                                                </p>
                                             </div>
                                         );
                                     })}
