@@ -1,6 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
 import { perks } from "@/config";
-import Link from "next/link";
 import MaxWidthWrapper from "../components/MaxWidthWrapper";
 import ProductReel from "../components/ProductReel";
 
@@ -8,7 +6,7 @@ export default function Home() {
     return (
         <>
             <MaxWidthWrapper>
-                <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
+                <div className="py-10 mx-auto text-center flex flex-col items-center max-w-3xl">
                     <h1 className="text-4xl font-bold tracking-tight">
                         Uncover TikTok&apos;s Hidden Gems: Must-Have{" "}
                         <span className="text-blue-600">Products</span> and{" "}
@@ -19,16 +17,16 @@ export default function Home() {
                         you&apos;ll discover must-have products and gadgets that
                         bring joy to your life. Let&apos;s explore together!
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                        <Link href="/products" className={buttonVariants()}>
-                            Browse Trending
-                        </Link>
-                    </div>
                 </div>
                 <ProductReel
-                    query={{ sort: "desc", limit: 4 }}
-                    title="Brand new"
+                    query={{ limit: 4 }}
+                    title="Hottest Gadgets"
                     href="/products"
+                />
+                <ProductReel
+                    query={{ sort: "desc", limit: 4 }}
+                    title="Latest Products"
+                    href="/products?sort=desc"
                 />
             </MaxWidthWrapper>
 

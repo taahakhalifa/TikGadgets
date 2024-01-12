@@ -23,7 +23,7 @@ const ProductsPage = ({ searchParams }: ProductsPageProps) => {
     return (
         <MaxWidthWrapper>
             <ProductReel
-                title={label ?? "Browse The Best TikTok Gadgets"}
+                title={label ?? "Hottest Products"}
                 query={{
                     category,
                     limit: 40,
